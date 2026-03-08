@@ -11,51 +11,55 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Daftar Produk</h3>
-            <div class="card-tools">
-                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm">
-                    <i class="fas fa-plus"></i> Tambah Produk
-                </a>
-            </div>
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h3 class="card-title"><i class="fas fa-box mr-2 text-muted"></i>Daftar Produk</h3>
+            <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus mr-1"></i> Tambah Produk
+            </a>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered table-striped">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th width="5%">No</th>
+                        <th style="width:5%">No</th>
                         <th>Nama Produk</th>
-                        <th>Tipe Menu</th>
+                        <th>Kategori</th>
                         <th>SKU</th>
                         <th>Harga</th>
                         <th>Status</th>
-                        <th width="15%">Aksi</th>
+                        <th class="text-center" style="width:15%">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($products as $product)
                         <tr>
-                            <td>{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td><span class="badge badge-info">{{ $product->type }}</span></td>
-                            <td>{{ $product->sku ?? '-' }}</td>
-                            <td>Rp {{ number_format($product->price, 0, ',', '.') }}</td>
+                            <td class="text-muted">{{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}</td>
+                            <td><strong>{{ $product->name }}</strong></td>
+                            <td>
+                                @php
+                                    $typeColors = ['Minuman' => 'primary', 'Snack' => 'warning', 'Makanan Berat' => 'success'];
+                                    $color = $typeColors[$product->type] ?? 'secondary';
+                                @endphp
+                                <span class="badge badge-{{ $color }}">{{ $product->type }}</span>
+                            </td>
+                            <td><code>{{ $product->sku ?? '-' }}</code></td>
+                            <td><strong>Rp {{ number_format($product->price, 0, ',', '.') }}</strong></td>
                             <td>
                                 @if($product->is_active)
-                                    <span class="badge badge-success">Aktif</span>
+                                    <span class="badge badge-success"><i class="fas fa-check mr-1"></i>Aktif</span>
                                 @else
-                                    <span class="badge badge-danger">Nonaktif</span>
+                                    <span class="badge badge-danger"><i class="fas fa-times mr-1"></i>Nonaktif</span>
                                 @endif
                             </td>
-                            <td>
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning">
+                            <td class="text-center">
+                                <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-warning" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="d-inline delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
+                                    <button type="button" class="btn btn-sm btn-danger btn-delete" title="Hapus"
+                                        data-name="{{ $product->name }}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -63,14 +67,43 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Belum ada data produk</td>
+                            <td colspan="7" class="text-center py-5">
+                                <i class="fas fa-box-open fa-3x text-muted mb-3 d-block" style="opacity:0.3"></i>
+                                <span class="text-muted">Belum ada data produk</span>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+        @if($products->hasPages())
         <div class="card-footer">
             {{ $products->links() }}
         </div>
+        @endif
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    $(document).on('click', '.btn-delete', function () {
+        const form = $(this).closest('form');
+        const name = $(this).data('name');
+        Swal.fire({
+            title: 'Hapus Produk?',
+            html: 'Produk <strong>"' + name + '"</strong> akan dihapus permanen.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#C62828',
+            cancelButtonColor: '#546E7A',
+            confirmButtonText: '<i class="fas fa-trash mr-1"></i> Ya, Hapus',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+</script>
+@endpush

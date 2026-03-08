@@ -1,47 +1,57 @@
 <x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    @if(session('status'))
+        <div class="session-status">
+            <i class="fas fa-check-circle mr-1"></i> {{ session('status') }}
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-wrapper">
+                <i class="fas fa-envelope input-icon"></i>
+                <input id="email" type="email" name="email"
+                    value="{{ old('email') }}"
+                    placeholder="nama@email.com"
+                    required autofocus autocomplete="username">
+            </div>
+            @error('email')
+                <div class="error-msg"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</div>
+            @enderror
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+                <i class="fas fa-lock input-icon"></i>
+                <input id="password" type="password" name="password"
+                    placeholder="••••••••"
+                    required autocomplete="current-password">
+            </div>
+            @error('password')
+                <div class="error-msg"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</div>
+            @enderror
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
+        <div class="remember-row">
+            <input id="remember_me" type="checkbox" name="remember">
+            <label for="remember_me">Ingat saya</label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+        <!-- Submit -->
+        <button type="submit" class="btn-login">
+            <i class="fas fa-sign-in-alt mr-2"></i>Masuk
+        </button>
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
+        @if(Route::has('password.request'))
+            <a class="forgot-link" href="{{ route('password.request') }}">
+                <i class="fas fa-key mr-1"></i>Lupa password?
+            </a>
+        @endif
     </form>
 </x-guest-layout>
