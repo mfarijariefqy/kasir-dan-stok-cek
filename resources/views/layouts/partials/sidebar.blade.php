@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link">
         <i class="fas fa-cash-register brand-image"></i>
-        <span class="brand-text font-weight-light">Kasir Kafe Al Muhsin</span>
+        <span class="brand-text font-weight-light">Cerita Coffee</span>
     </a>
 
     <!-- Sidebar -->

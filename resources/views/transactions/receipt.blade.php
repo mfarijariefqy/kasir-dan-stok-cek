@@ -110,7 +110,7 @@
 
 <body>
     <div class="header">
-        <h2>KASIR UMKM</h2>
+        <h2>Cerita Coffee</h2>
         <p>Jl. Contoh No. 123</p>
         <p>Telp: 0812-3456-7890</p>
     </div>
