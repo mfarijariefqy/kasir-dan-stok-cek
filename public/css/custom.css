@@ -794,20 +794,434 @@ select.form-control-sm option {
 }
 
 /* =============================================
-   RESPONSIVE ADJUSTMENTS
+   MOBILE & TABLET RESPONSIVE
    ============================================= */
+
+/* --- Wrapper tabel agar bisa scroll horizontal di mobile --- */
+.table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* Semua tabel di dalam card-body bisa scroll horizontal */
+.card-body .table,
+.card-body > .table {
+    min-width: 500px;
+}
+
+.card-body.p-0 {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* --- TABLET (max 992px) --- */
+@media (max-width: 992px) {
+    /* Navbar brand text lebih kecil */
+    .brand-text {
+        font-size: 1rem !important;
+    }
+
+    /* Content padding lebih kecil */
+    .content {
+        padding: 14px 0 !important;
+    }
+
+    .container-fluid {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Card body padding lebih kecil */
+    .card-body {
+        padding: 16px !important;
+    }
+
+    .card-body.p-0 {
+        padding: 0 !important;
+    }
+
+    /* Breadcrumb lebih kecil */
+    .content-header {
+        padding: 10px 0 !important;
+    }
+
+    .content-header h1 {
+        font-size: 1rem !important;
+    }
+
+    /* Stat cards: 2 kolom */
+    .stat-card .stat-value {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* --- MOBILE (max 768px) --- */
 @media (max-width: 768px) {
-    .small-box .inner h3 {
-        font-size: 1.3rem !important;
+
+    /* Konten utama */
+    .content {
+        padding: 12px 0 !important;
+    }
+
+    .container-fluid {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* Card */
+    .card {
+        border-radius: 10px !important;
+        margin-bottom: 14px !important;
     }
 
     .card-body {
         padding: 14px !important;
     }
 
-    .content {
-        padding-top: 14px !important;
+    .card-body.p-0 {
+        padding: 0 !important;
     }
+
+    .card-header {
+        padding: 12px 14px !important;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .card-header.d-flex {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .card-title {
+        font-size: 0.88rem !important;
+    }
+
+    .card-footer {
+        padding: 12px 14px !important;
+    }
+
+    /* Content header / breadcrumb */
+    .content-header {
+        padding: 10px 0 !important;
+    }
+
+    .content-header h1 {
+        font-size: 0.95rem !important;
+    }
+
+    .breadcrumb {
+        display: none !important;
+    }
+
+    /* Stat boxes */
+    .small-box .inner h3 {
+        font-size: 1.1rem !important;
+    }
+
+    .small-box .inner p {
+        font-size: 0.75rem !important;
+    }
+
+    /* Tombol touch-friendly: min 44px tinggi */
+    .btn {
+        min-height: 40px;
+        padding: 8px 14px !important;
+        font-size: 0.83rem !important;
+    }
+
+    .btn-sm {
+        min-height: 34px;
+        padding: 5px 10px !important;
+        font-size: 0.78rem !important;
+    }
+
+    .btn-lg {
+        min-height: 48px;
+        padding: 12px 20px !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Form inputs lebih besar untuk sentuh */
+    .form-control {
+        padding: 10px 12px !important;
+        font-size: 0.9rem !important;
+        min-height: 44px;
+    }
+
+    select.form-control {
+        min-height: 44px;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .form-control-sm {
+        min-height: 38px;
+        padding: 6px 10px !important;
+        font-size: 0.85rem !important;
+    }
+
+    select.form-control-sm {
+        min-height: 38px;
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
+
+    /* Pagination */
+    .pagination {
+        flex-wrap: wrap;
+        gap: 2px;
+    }
+
+    .pagination .page-link {
+        padding: 6px 10px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* form-inline jadi block di mobile */
+    .form-inline {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .form-inline .form-group {
+        width: 100% !important;
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .form-inline .form-group label {
+        margin-right: 8px;
+    }
+
+    .form-inline .form-control {
+        width: 100% !important;
+    }
+
+    .form-inline .btn {
+        width: 100%;
+    }
+
+    /* Table cells */
+    .table td,
+    .table th {
+        padding: 10px 12px !important;
+        font-size: 0.83rem !important;
+    }
+
+    /* Avatar di users table */
+    .user-avatar-sm {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 0.75rem !important;
+    }
+}
+
+/* --- SMALL PHONE (max 576px) --- */
+@media (max-width: 576px) {
+
+    /* Sembunyikan kolom yang tidak penting di tabel */
+    .table .hide-mobile {
+        display: none !important;
+    }
+
+    /* Stat card: full width */
+    .col-lg-3.col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    /* Greeting banner compact */
+    .greeting-banner {
+        padding: 16px 18px !important;
+    }
+
+    .greeting-banner .greeting-text h4 {
+        font-size: 1rem !important;
+    }
+
+    .greeting-banner .greeting-icon {
+        display: none;
+    }
+
+    /* Button group di action kolom tabel: susun vertikal */
+    .btn-group-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .btn-group-mobile .btn {
+        width: 100%;
+    }
+}
+
+/* =============================================
+   KASIR PAGE MOBILE - Card-based item list
+   ============================================= */
+
+/* Desktop: tabel normal, mobile cards tersembunyi */
+.kasir-item-cards { display: none; }
+.kasir-item-table { display: block; }
+
+@media (max-width: 768px) {
+    /* Sembunyikan tabel, tampilkan kartu */
+    .kasir-item-table  { display: none !important; }
+    .kasir-item-cards  { display: block !important; }
+
+    /* Sticky panel bayar di bawah */
+    .kasir-panel {
+        position: static !important;
+    }
+
+    /* Kolom item & payment jadi full width */
+    .kasir-col-items,
+    .kasir-col-payment {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Payment summary di mobile lebih compact */
+    .payment-summary .card-body {
+        padding: 16px !important;
+    }
+
+    #totalDisplay {
+        font-size: 1.3rem !important;
+    }
+
+    .btn-submit-trx {
+        font-size: 1rem !important;
+        padding: 14px !important;
+    }
+}
+
+/* Item card (mobile kasir) */
+.kasir-item-card {
+    background: #fff;
+    border: 1.5px solid #E8E0D8;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    position: relative;
+    animation: rowSlideIn 0.25s ease-out;
+}
+
+.kasir-item-card .item-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.kasir-item-card .item-badge {
+    background: #F5F0E8;
+    color: #6F4E37;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.kasir-item-card .btn-remove-card {
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    min-height: unset !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.kasir-item-card select {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.kasir-item-card .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.kasir-item-card .price-label {
+    font-size: 0.75rem;
+    color: #888;
+    font-weight: 600;
+}
+
+.kasir-item-card .price-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #6F4E37;
+}
+
+.kasir-item-card .subtotal-value {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #3E2723;
+}
+
+/* Qty control (mobile) */
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1.5px solid #E0D9D0;
+    border-radius: 8px;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.qty-control .qty-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: #F5F0E8;
+    color: #6F4E37;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+    min-height: unset !important;
+}
+
+.qty-control .qty-btn:active {
+    background: #D7CCC8;
+}
+
+.qty-control .qty-number {
+    width: 42px;
+    text-align: center;
+    border: none;
+    background: #fff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #333;
+    padding: 0;
+    min-height: unset !important;
+    border-left: 1.5px solid #E0D9D0;
+    border-right: 1.5px solid #E0D9D0;
+}
+
+/* Tombol tambah item mobile */
+.btn-add-item-mobile {
+    background: linear-gradient(135deg, #6F4E37, #A1887F) !important;
+    color: #fff !important;
+    width: 100%;
+    margin-bottom: 10px;
+    min-height: 46px !important;
+    font-size: 0.9rem !important;
+    border-radius: 10px !important;
 }
 
 /* =============================================
