@@ -41,6 +41,7 @@ class TransactionService
                 'trx_no' => $trxNo,
                 'trx_date' => $data['trx_date'] ?? Carbon::now()->toDateString(),
                 'user_id' => auth()->id(),
+                'payment_method' => $data['payment_method'] ?? 'Cash',
                 'total' => $data['total'],
                 'paid' => $data['paid'],
                 'change' => $data['change'],
