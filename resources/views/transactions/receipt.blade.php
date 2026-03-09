@@ -109,9 +109,8 @@
 </head>
 
 <body>
-    @for ($i = 1; $i <= 2; $i++)
-            <div class="receipt-content" style="{{ $i == 2 ? 'margin-top: 30px; border-top: 2px dashed #000; padding-top: 30px;' : '' }}">
-                <div class="header">
+    <div class="receipt-content">
+        <div class="header">
             <h2>Cerita Coffee</h2>
             <p>Jl. Contoh No. 123</p>
             <p>Telp: 0812-3456-7890</p>
@@ -121,7 +120,7 @@
             <p>No. Transaksi: {{ $transaction->trx_no }}</p>
             <p>Tanggal: {{ $transaction->trx_date->format('d/m/Y H:i') }}</p>
             <p>Kasir: {{ $transaction->user->name }}</p>
-                    <p><strong>Cetak: {{ $i == 1 ? 'Pelanggan' : 'Toko' }}</strong></p>
+            <p><strong id="receiptTypeLabel">Cetak: Pelanggan</strong></p>
         </div>
 
         <div class="separator"></div>
@@ -161,17 +160,24 @@
             <p>Terima Kasih</p>
             <p>Atas Kunjungan Anda</p>
         </div>
-            </div>
-    @endfor
+    </div>
 
     <div class="no-print" style="text-align: center; margin-top: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Cetak Struk</button>
-        <button onclick="window.close()" style="padding: 10px 20px; cursor: pointer; margin-left: 10px;">Tutup</button>
+        <button onclick="printReceipt('Pelanggan')"
+            style="padding: 10px 20px; cursor: pointer; margin-bottom: 10px;">Cetak Pelanggan</button>
+        <button onclick="printReceipt('Dapur')"
+            style="padding: 10px 20px; cursor: pointer; margin-left: 10px; margin-bottom: 10px;">Cetak
+            Dapur</button><br>
+        <button onclick="window.close()" style="padding: 10px 20px; cursor: pointer;">Tutup</button>
     </div>
 
     <script>
+        function printReceipt(type) {
+            document.getElementById('receiptTypeLabel').innerText = 'Cetak: ' + type;
+            window.print();
+        }
         // Auto print on load (optional)
-        // window.onload = function() { window.print(); }
+        // window.onload = function() { printReceipt('Pelanggan'); }
     </script>
 </body>
 
