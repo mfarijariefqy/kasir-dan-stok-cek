@@ -109,55 +109,60 @@
 </head>
 
 <body>
-    <div class="header">
-        <h2>Cerita Coffee</h2>
-        <p>Jl. Contoh No. 123</p>
-        <p>Telp: 0812-3456-7890</p>
-    </div>
-
-    <div class="info">
-        <p>No. Transaksi: {{ $transaction->trx_no }}</p>
-        <p>Tanggal: {{ $transaction->trx_date->format('d/m/Y H:i') }}</p>
-        <p>Kasir: {{ $transaction->user->name }}</p>
-    </div>
-
-    <div class="separator"></div>
-
-    <table>
-        <tbody>
-            @foreach($transaction->items as $item)
-                <tr>
-                    <td class="item-name">{{ $item->product->name }}</td>
-                    <td class="item-qty">{{ $item->qty }}x</td>
-                    <td class="item-price">{{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    <div class="total-section">
-        <div class="total-row grand">
-            <span>TOTAL</span>
-            <span>Rp {{ number_format($transaction->total, 0, ',', '.') }}</span>
+    @for ($i = 1; $i <= 2; $i++)
+            <div class="receipt-content" style="{{ $i == 2 ? 'margin-top: 30px; border-top: 2px dashed #000; padding-top: 30px;' : '' }}">
+                <div class="header">
+            <h2>Cerita Coffee</h2>
+            <p>Jl. Contoh No. 123</p>
+            <p>Telp: 0812-3456-7890</p>
         </div>
-        <div class="total-row">
-            <span>Metode</span>
-            <span>{{ $transaction->payment_method }}</span>
-        </div>
-        <div class="total-row">
-            <span>Bayar</span>
-            <span>Rp {{ number_format($transaction->paid, 0, ',', '.') }}</span>
-        </div>
-        <div class="total-row">
-            <span>Kembalian</span>
-            <span>Rp {{ number_format($transaction->change, 0, ',', '.') }}</span>
-        </div>
-    </div>
 
-    <div class="footer">
-        <p>Terima Kasih</p>
-        <p>Atas Kunjungan Anda</p>
-    </div>
+        <div class="info">
+            <p>No. Transaksi: {{ $transaction->trx_no }}</p>
+            <p>Tanggal: {{ $transaction->trx_date->format('d/m/Y H:i') }}</p>
+            <p>Kasir: {{ $transaction->user->name }}</p>
+                    <p><strong>Cetak: {{ $i == 1 ? 'Pelanggan' : 'Toko' }}</strong></p>
+        </div>
+
+        <div class="separator"></div>
+
+        <table>
+            <tbody>
+                @foreach($transaction->items as $item)
+                    <tr>
+                        <td class="item-name">{{ $item->product->name }}</td>
+                        <td class="item-qty">{{ $item->qty }}x</td>
+                        <td class="item-price">{{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            <div class="total-row grand">
+                <span>TOTAL</span>
+                <span>Rp {{ number_format($transaction->total, 0, ',', '.') }}</span>
+            </div>
+            <div class="total-row">
+                <span>Metode</span>
+                <span>{{ $transaction->payment_method }}</span>
+            </div>
+            <div class="total-row">
+                <span>Bayar</span>
+                <span>Rp {{ number_format($transaction->paid, 0, ',', '.') }}</span>
+            </div>
+            <div class="total-row">
+                <span>Kembalian</span>
+                <span>Rp {{ number_format($transaction->change, 0, ',', '.') }}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Terima Kasih</p>
+            <p>Atas Kunjungan Anda</p>
+        </div>
+            </div>
+    @endfor
 
     <div class="no-print" style="text-align: center; margin-top: 20px;">
         <button onclick="window.print()" style="padding: 10px 20px; cursor: pointer;">Cetak Struk</button>
