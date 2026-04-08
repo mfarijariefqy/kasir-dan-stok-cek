@@ -34,6 +34,7 @@
                         <option value="gram" {{ old('unit') == 'gram' ? 'selected' : '' }}>Gram</option>
                         <option value="ml" {{ old('unit') == 'ml' ? 'selected' : '' }}>Mililiter (ml)</option>
                         <option value="pcs" {{ old('unit') == 'pcs' ? 'selected' : '' }}>Pcs</option>
+                        <option value="sendok" {{ old('unit') == 'sendok' ? 'selected' : '' }}>Sendok</option>
                     </select>
                     @error('unit')
                         <div class="invalid-feedback">{{ $message }}</div>

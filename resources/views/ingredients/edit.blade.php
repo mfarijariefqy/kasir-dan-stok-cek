@@ -36,6 +36,7 @@
                         <option value="ml" {{ old('unit', $ingredient->unit) == 'ml' ? 'selected' : '' }}>Mililiter (ml)
                         </option>
                         <option value="pcs" {{ old('unit', $ingredient->unit) == 'pcs' ? 'selected' : '' }}>Pcs</option>
+                        <option value="sendok" {{ old('unit', $ingredient->unit) == 'sendok' ? 'selected' : '' }}>Sendok</option>
                     </select>
                     @error('unit')
                         <div class="invalid-feedback">{{ $message }}</div>
