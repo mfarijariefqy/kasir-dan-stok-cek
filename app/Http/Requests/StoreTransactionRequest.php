@@ -31,6 +31,7 @@ class StoreTransactionRequest extends FormRequest
             'payment_method' => 'required|in:Cash,QRIS',
             'paid' => 'required|numeric|min:0',
             'change' => 'required|numeric|min:0',
+            'customer_name' => 'nullable|string|max:100',
         ];
     }
 

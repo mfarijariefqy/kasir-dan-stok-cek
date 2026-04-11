@@ -64,6 +64,7 @@
                             <th>No. Transaksi</th>
                             <th>Waktu</th>
                             <th>Kasir</th>
+                            <th>Pembeli</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -74,11 +75,12 @@
                                 <td><code style="background:#F5F0E8;color:#6F4E37;padding:2px 7px;border-radius:4px;font-size:0.8rem;">{{ $transaction->trx_no }}</code></td>
                                 <td>{{ $transaction->created_at->format('H:i') }}</td>
                                 <td>{{ $transaction->user->name }}</td>
+                                <td>{{ $transaction->customer_name ?? '-' }}</td>
                                 <td><strong style="color:#2E7D32;">Rp {{ number_format($transaction->total, 0, ',', '.') }}</strong></td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-4">
+                                <td colspan="6" class="text-center py-4">
                                     <i class="fas fa-inbox fa-2x d-block mb-2" style="opacity:0.2"></i>
                                     <span class="text-muted">Tidak ada transaksi pada tanggal ini</span>
                                 </td>

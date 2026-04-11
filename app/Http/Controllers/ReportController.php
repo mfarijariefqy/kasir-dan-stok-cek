@@ -17,7 +17,7 @@ class ReportController extends Controller
     {
         $date = $request->input('date', Carbon::today()->toDateString());
 
-        $transactions = Transaction::with('items.product')
+        $transactions = Transaction::with('items.product', 'user')
             ->whereDate('trx_date', $date)
             ->get();
 

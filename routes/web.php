@@ -52,6 +52,10 @@ Route::middleware(['auth'])->group(function () {
             ->middleware('permission:manage-transactions')
             ->name('transactions.store');
 
+        Route::get('/print-all', [TransactionController::class, 'printAll'])
+            ->middleware('permission:view-transactions|manage-transactions')
+            ->name('transactions.print-all');
+
         Route::get('/{transaction}', [TransactionController::class, 'show'])
             ->middleware('permission:view-transactions|manage-transactions')
             ->name('transactions.show');

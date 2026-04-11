@@ -112,15 +112,17 @@
     <div class="receipt-content">
         <div class="header">
             <h2>Cerita Coffee</h2>
-            <p>Jl. Contoh No. 123</p>
-            <p>Telp: 0812-3456-7890</p>
+            <p>Mijen, Wonosari, Kec. Pegandon, Kabupaten Kendal, Jawa Tengah</p>
+            <p>Telp: 0899-9877-667</p>
         </div>
 
         <div class="info">
             <p>No. Transaksi: {{ $transaction->trx_no }}</p>
             <p>Tanggal: {{ $transaction->trx_date->format('d/m/Y H:i') }}</p>
             <p>Kasir: {{ $transaction->user->name }}</p>
-            <p><strong id="receiptTypeLabel">Cetak: Pelanggan</strong></p>
+            @if($transaction->customer_name)
+            <p>Pembeli: <strong>{{ $transaction->customer_name }}</strong></p>
+            @endif
         </div>
 
         <div class="separator"></div>

@@ -45,6 +45,7 @@ class TransactionService
                 'total' => $data['total'],
                 'paid' => $data['paid'],
                 'change' => $data['change'],
+                'customer_name' => $data['customer_name'] ?? null,
             ]);
 
             // Create transaction items

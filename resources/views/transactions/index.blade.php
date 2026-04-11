@@ -10,6 +10,73 @@
 @endsection
 
 @section('content')
+
+    {{-- Filter --}}
+    <div class="card mb-3">
+        <div class="card-body py-2">
+            <form action="{{ route('transactions.index') }}" method="GET">
+                <div class="row align-items-end" style="gap:0;">
+                    <div class="col-sm-3 mb-2 mb-sm-0">
+                        <label class="d-block" style="font-size:0.75rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Dari Tanggal</label>
+                        <input type="date" name="date_from" class="form-control form-control-sm" value="{{ $dateFrom ?? '' }}">
+                    </div>
+                    <div class="col-sm-3 mb-2 mb-sm-0">
+                        <label class="d-block" style="font-size:0.75rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Sampai Tanggal</label>
+                        <input type="date" name="date_to" class="form-control form-control-sm" value="{{ $dateTo ?? '' }}">
+                    </div>
+                    <div class="col-sm-3 mb-2 mb-sm-0">
+                        <label class="d-block" style="font-size:0.75rem;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:4px;">Metode Bayar</label>
+                        <select name="payment_method" class="form-control form-control-sm">
+                            <option value="">-- Semua --</option>
+                            <option value="Cash" {{ ($paymentMethod ?? '') === 'Cash' ? 'selected' : '' }}>💵 Cash</option>
+                            <option value="QRIS" {{ ($paymentMethod ?? '') === 'QRIS' ? 'selected' : '' }}>📱 QRIS</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 d-flex" style="gap:6px;">
+                        <button type="submit" class="btn btn-sm btn-primary flex-fill">
+                            <i class="fas fa-search mr-1"></i> Filter
+                        </button>
+                        @if($dateFrom || $dateTo || $paymentMethod)
+                            <a href="{{ route('transactions.index') }}" class="btn btn-sm btn-secondary" title="Reset">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- Summary bar --}}
+    <div class="row mb-3">
+        <div class="col-sm-4">
+            <div class="info-box mb-0" style="min-height:unset;">
+                <span class="info-box-icon bg-info" style="font-size:1.2rem;line-height:60px;width:60px;height:60px;"><i class="fas fa-receipt"></i></span>
+                <div class="info-box-content" style="padding:8px 14px;">
+                    <span class="info-box-text" style="font-size:0.78rem;">Jumlah Transaksi</span>
+                    <span class="info-box-number" style="font-size:1.3rem;">{{ number_format($totalCount, 0, ',', '.') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="info-box mb-0" style="min-height:unset;">
+                <span class="info-box-icon bg-success" style="font-size:1.2rem;line-height:60px;width:60px;height:60px;"><i class="fas fa-money-bill-wave"></i></span>
+                <div class="info-box-content" style="padding:8px 14px;">
+                    <span class="info-box-text" style="font-size:0.78rem;">Total Pendapatan</span>
+                    <span class="info-box-number" style="font-size:1.15rem;">Rp {{ number_format($grandTotal, 0, ',', '.') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 d-flex align-items-center justify-content-sm-end mt-2 mt-sm-0">
+            @if($totalCount > 0)
+            <a href="{{ route('transactions.print-all', array_filter(['date_from' => $dateFrom, 'date_to' => $dateTo, 'payment_method' => $paymentMethod])) }}"
+               target="_blank" class="btn btn-success">
+                <i class="fas fa-print mr-1"></i> Cetak Semua ({{ $totalCount }})
+            </a>
+            @endif
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header d-flex align-items-center justify-content-between">
             <h3 class="card-title"><i class="fas fa-history mr-2 text-muted"></i>Riwayat Transaksi</h3>

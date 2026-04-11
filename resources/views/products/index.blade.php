@@ -17,6 +17,20 @@
                 <i class="fas fa-plus mr-1"></i> Tambah Produk
             </a>
         </div>
+        <div class="card-body border-bottom py-2 px-3">
+            <form action="{{ route('products.index') }}" method="GET" class="d-flex" style="gap:8px;">
+                <input type="text" name="search" class="form-control form-control-sm"
+                    placeholder="Cari nama produk..." value="{{ $search ?? '' }}" style="max-width:280px;">
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+                @if($search)
+                    <a href="{{ route('products.index') }}" class="btn btn-sm btn-secondary" title="Reset">
+                        <i class="fas fa-times"></i>
+                    </a>
+                @endif
+            </form>
+        </div>
         <div class="card-body p-0">
             <table class="table table-hover mb-0">
                 <thead>

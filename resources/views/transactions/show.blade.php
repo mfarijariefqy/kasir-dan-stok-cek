@@ -94,6 +94,12 @@
                             <td class="text-muted" style="padding:10px 16px;font-size:0.82rem;">Kembalian</td>
                             <td style="padding:10px 16px;font-size:0.85rem;color:#2E7D32;font-weight:600;">Rp {{ number_format($transaction->change, 0, ',', '.') }}</td>
                         </tr>
+                        @if($transaction->customer_name)
+                        <tr>
+                            <td class="text-muted" style="padding:10px 16px;font-size:0.82rem;">Nama Pembeli</td>
+                            <td style="padding:10px 16px;font-size:0.85rem;font-weight:600;">{{ $transaction->customer_name }}</td>
+                        </tr>
+                        @endif
                     </table>
                 </div>
                 <div class="card-footer">

@@ -20,13 +20,50 @@ class TransactionController extends Controller
     /**
      * Display a listing of transactions.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::with('user')
-            ->latest()
-            ->paginate(15);
+        $dateFrom      = $request->input('date_from');
+        $dateTo        = $request->input('date_to');
+        $paymentMethod = $request->input('payment_method');
 
-        return view('transactions.index', compact('transactions'));
+        $query = Transaction::with('user')
+            ->when($dateFrom, fn($q) => $q->whereDate('trx_date', '>=', $dateFrom))
+            ->when($dateTo,   fn($q) => $q->whereDate('trx_date', '<=', $dateTo))
+            ->when($paymentMethod, fn($q) => $q->where('payment_method', $paymentMethod))
+            ->latest();
+
+        $grandTotal  = $query->sum('total');
+        $totalCount  = $query->count();
+        $transactions = $query->paginate(15)->withQueryString();
+
+        return view('transactions.index', compact(
+            'transactions', 'grandTotal', 'totalCount',
+            'dateFrom', 'dateTo', 'paymentMethod'
+        ));
+    }
+
+    /**
+     * Print all filtered transactions.
+     */
+    public function printAll(Request $request)
+    {
+        $dateFrom      = $request->input('date_from');
+        $dateTo        = $request->input('date_to');
+        $paymentMethod = $request->input('payment_method');
+
+        $transactions = Transaction::with('user', 'items.product')
+            ->when($dateFrom, fn($q) => $q->whereDate('trx_date', '>=', $dateFrom))
+            ->when($dateTo,   fn($q) => $q->whereDate('trx_date', '<=', $dateTo))
+            ->when($paymentMethod, fn($q) => $q->where('payment_method', $paymentMethod))
+            ->latest()
+            ->get();
+
+        $grandTotal = $transactions->sum('total');
+
+        return view('transactions.print-all', compact(
+            'transactions', 'grandTotal',
+            'dateFrom', 'dateTo', 'paymentMethod'
+        ));
     }
 
     /**
