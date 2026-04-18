@@ -97,13 +97,8 @@
         }
 
         @media print {
-            body {
-                padding: 0;
-            }
-
-            .no-print {
-                display: none;
-            }
+            body { padding: 0; }
+            .no-print { display: none; }
         }
     </style>
 </head>
@@ -165,8 +160,9 @@
     </div>
 
     <div class="no-print" style="text-align: center; margin-top: 20px;">
-        <button onclick="printReceipt()" style="padding: 10px 20px; cursor: pointer; margin-bottom: 10px;">Cetak Struk</button>
-        <button onclick="window.close()" style="padding: 10px 20px; cursor: pointer; margin-left: 10px;">Tutup</button>
+        <button onclick="printReceipt()" style="padding: 10px 20px; cursor: pointer; margin-bottom: 10px;">Cetak Pelanggan</button>
+        <button onclick="printReceipt()" style="padding: 10px 20px; cursor: pointer; margin-left: 10px; margin-bottom: 10px;">Cetak Dapur</button><br>
+        <button onclick="window.close()" style="padding: 10px 20px; cursor: pointer;">Tutup</button>
     </div>
 
     <script>
